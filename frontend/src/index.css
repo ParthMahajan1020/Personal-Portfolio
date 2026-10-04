@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: #f3f2ee;
+  color: #071714;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #071714;
+  color: #f3f2ee;
+}
+
+.about-grid {
+  background-image:
+    linear-gradient(to right, rgba(7, 23, 20, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(7, 23, 20, 0.08) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.about-balance {
+  letter-spacing: -0.07em;
+}
+
+@keyframes available-shine {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.available-shine {
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0.35) 40%,
+    #ffffff 50%,
+    rgba(255, 255, 255, 0.35) 60%
+  );
+
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  animation: available-shine 3s linear infinite;
+}
