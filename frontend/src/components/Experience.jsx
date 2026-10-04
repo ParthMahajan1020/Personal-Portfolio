@@ -35,18 +35,6 @@ const Experience = () => {
         },
       });
 
-      gsap.from(".experience-item", {
-        opacity: 0,
-        y: 25,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".experience-list",
-          start: "top 80%",
-        },
-      });
-
       gsap.from(".experience-detail", {
         opacity: 0,
         x: 25,
