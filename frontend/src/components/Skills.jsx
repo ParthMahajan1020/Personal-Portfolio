@@ -432,27 +432,7 @@ const Skills = () => {
                     </div>
                   </div>
                 )}
-
-                {category.theme === 'signal' && (
-                  <div className="skills-row flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                    <div className="flex flex-wrap gap-3 text-[clamp(1.8rem,3vw,3.7rem)] font-medium uppercase leading-none tracking-[-0.07em] text-[#071714]">
-                      {category.skills.map((skill) => (
-                        <span key={skill.name} className="inline-flex items-center gap-2">
-                          <span>{skill.name}</span>
-                          <span className="text-[0.7em] text-[#071714]/35">•</span>
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-[#071714]/60">
-                      <span className="relative inline-flex h-2.5 w-2.5">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#071714]/30" />
-                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#071714]" />
-                      </span>
-                      <span>Currently exploring</span>
-                    </div>
-                  </div>
-                )}
+                
               </section>
             );
           })}
