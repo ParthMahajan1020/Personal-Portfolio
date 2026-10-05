@@ -42,7 +42,7 @@ const projects = [
     description:
       "A MERN-based community platform that connects people who need help with those willing to provide it, with dedicated flows for blood donation and local services.",
 
-    liveUrl: "",
+    liveUrl: "https://community-connect-three-neon.vercel.app/login",
     githubUrl: "https://github.com/ParthMahajan1020/CommunityConnect",
 
     image: communityConnectImage,
