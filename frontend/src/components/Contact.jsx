@@ -67,79 +67,101 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  setIsSubmitting(true);
-
-  setStatus({
-    type: "",
-    message: "",
-  });
-
-  try {
-    const API_URL = import.meta.env.VITE_API_URL;
-
-    if (!API_URL) {
-      throw new Error("API URL is not configured.");
-    }
-
-    const response = await fetch(`${API_URL}/api/contact`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    // Read the response safely instead of assuming it is JSON
-    const contentType = response.headers.get("content-type") || "";
-
-    let data = {};
-
-    if (contentType.includes("application/json")) {
-      data = await response.json();
-    } else {
-      const text = await response.text();
-
-      throw new Error(
-        text ||
-          `Server returned an invalid response (HTTP ${response.status}).`
-      );
-    }
-
-    // Handle backend errors
-    if (!response.ok || !data.success) {
-      throw new Error(
-        data.message || "Unable to send your message. Please try again."
-      );
-    }
-
-    // Success
+    setIsSubmitting(true);
     setStatus({
-      type: "success",
-      message: "Message sent successfully. Thanks for reaching out.",
-    });
-
-    // Clear form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
+      type: "",
       message: "",
     });
-  } catch (error) {
-    console.error("Contact form error:", error);
 
-    setStatus({
-      type: "error",
-      message:
-        error.message ||
-        "Unable to send your message. Please try again.",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+    try {
+      const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "");
+
+      if (!API_URL) {
+        throw new Error(
+          "The public backend URL is missing. Add VITE_API_URL in your Vercel environment variables."
+        );
+      }
+
+      const endpoint = `${API_URL}/api/contact`;
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        }),
+      });
+
+      const contentType = response.headers.get("content-type") || "";
+      let data = {};
+
+      if (contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+
+        console.error("Contact form received non-JSON response:", {
+          status: response.status,
+          endpoint,
+          contentType,
+          responsePreview: text?.slice(0, 300),
+        });
+
+        throw new Error(
+          response.status === 404
+            ? "The contact endpoint could not be found on the backend."
+            : response.status >= 500
+              ? "The backend is currently unavailable. Please try again later."
+              : "The backend responded unexpectedly. Please try again later."
+        );
+      }
+
+      if (!response.ok || !data.success) {
+        console.error("Contact form backend error:", {
+          status: response.status,
+          endpoint,
+          data,
+        });
+
+        throw new Error(
+          data.message || "Unable to send your message. Please try again."
+        );
+      }
+
+      setStatus({
+        type: "success",
+        message: "Message sent successfully. Thanks for reaching out.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+      });
+
+      setStatus({
+        type: "error",
+        message:
+          error.message || "Unable to send your message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section
