@@ -150,7 +150,7 @@ app.post("/api/contact", async (req, res) => {
 
     const { data, error } =
       await resend.emails.send({
-        from: "Portfolio Backend <onboarding@resend.dev>",
+        from: "Portfolio <onboarding@resend.dev>",
 
         to: [process.env.EMAIL_TO],
 
