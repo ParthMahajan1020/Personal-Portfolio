@@ -25,7 +25,7 @@ const journeySteps = [
     title: 'SOLVE',
     meta: 'DSA',
     description:
-      'I started consistently solving DSA problems in Java and have now solved 400+ problems on LeetCode. It helped me sharpen my thinking and approach problems with more structure.',
+      'I started consistently solving DSA problems in Java and have now solved 450+ problems on LeetCode. It helped me sharpen my thinking and approach problems with more structure.',
   },
   {
     number: '04',
