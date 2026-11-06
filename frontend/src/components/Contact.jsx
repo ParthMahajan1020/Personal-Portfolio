@@ -227,7 +227,7 @@ const Contact = () => {
                   className="group inline-flex items-center gap-2 text-sm font-medium sm:text-base"
                 >
                   <span className="border-b border-[#071714]/30 pb-1 transition-colors duration-300 group-hover:border-[#071714]">
-                    parthma28@gmail.com
+                    parth.mahajan1020@gmail.com
                   </span>
 
                   <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
